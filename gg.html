@@ -1,0 +1,200 @@
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MA'EM RISOL - Vintage Elegan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .hero-logo {
+    width: 300px;       /* sesuaikan ukuran logo */
+    height: auto;
+    margin-bottom: 20px; /* jarak dengan h1 */
+    border-radius: 50%;  /* opsional, jika ingin logo bulat */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* efek cantik */
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Roboto', sans-serif;
+    background:#f3e8dc;
+    color:#4b2e2e;
+    scroll-behavior:smooth;
+    padding-top:90px;
+  }
+
+  /* Header */
+  header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:rgba(245,230,210,0.95);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    z-index:1000;
+    border-bottom:2px solid #d1bfa7;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  }
+  header .logo{
+    font-family:'Playfair Display', serif;
+    font-size:2rem;
+    font-weight:700;
+    color:#4b2e2e;
+    cursor:pointer;
+    transition:0.3s;
+  }
+  header .logo:hover{color:#a0522d;}
+  nav a{
+    margin-left:20px;
+    text-decoration:none;
+    color:#4b2e2e;
+    font-weight:600;
+    font-family:'Playfair Display', serif;
+    transition:0.3s;
+  }
+  nav a:hover{color:#a0522d; transform:scale(1.1);}
+
+  /* Container */
+  .container{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+  /* Hero Section */
+  .hero{
+    min-height:90vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background: url('images/vintage-restaurant.jpg') center/cover no-repeat;
+    border-radius:20px;
+    margin-bottom:50px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    position:relative;
+    color:#fff;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(75,46,46,0.55);
+    border-radius:20px;
+  }
+  .hero h1{
+    font-family:'Playfair Display', serif;
+    font-size:3rem;
+    margin-bottom:15px;
+    position:relative;
+    z-index:1;
+    animation:fadeDown 1s ease;
+    text-shadow:2px 2px 6px rgba(0,0,0,0.5);
+  }
+  .hero p{
+    font-size:1.3rem;
+    margin-bottom:10px;
+    position:relative;
+    z-index:1;
+    animation:fadeUp 1s ease;
+  }
+  .hero .alamat{
+    font-size:1.1rem;
+    font-style:italic;
+    margin-bottom:20px;
+    position:relative;
+    z-index:1;
+    color:#ffe6c2;
+  }
+  .hero a.button{
+    background:#a0522d;
+    color:#fff;
+    padding:15px 40px;
+    border-radius:25px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:1.2rem;
+    transition:0.3s;
+    position:relative;
+    z-index:1;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  }
+  .hero a.button:hover{background:#8b3e2f; transform:scale(1.05);}
+
+  /* Social Links */
+  .social-links{
+    margin-top:25px;
+    display:flex;
+    gap:25px;
+    position:relative;
+    z-index:1;
+  }
+  .social-links a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+    font-family:'Playfair Display', serif;
+  }
+  .social-links a:hover{color:#d1bfa7; transform:scale(1.2);}
+
+  /* Footer */
+  footer{
+    text-align:center;
+    padding: 20px 100px;
+    background:#f5e6d2;
+    border-top:2px solid #d1bfa7;
+    font-size:0.95rem;
+    color:#4b2e2e;
+  }
+  footer a{
+    color:#a0522d;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+  }
+  footer a:hover{color:#8b3e2f;}
+
+  /* Animations */
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+  /* Responsive */
+  @media(max-width:768px){
+    .hero h1{font-size:2.2rem;}
+    .hero p{font-size:1rem;}
+    .hero a.button{padding:12px 30px; font-size:1rem;}
+  }
+  </style>
+  </head>
+  <body>
+
+  <header>
+    <div class="logo" onclick="window.location.href='gg.html'">🍴 MA'EM RISOL</div>
+  
+  </header>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+    <img src="images/logo.jpg" alt="Logo MA'EM RISOL" class="hero-logo">
+    <h1>Selamat Datang di MA'EM RISOL</h1>
+    <p>Makanan enak siap antar, nikmati cita rasa vintage yang autentik!</p>
+    <p class="alamat">Alamat Restoran: Gg. Muawal No.75, Krajan Utara, Sumber Porong, Kec. Lawang, Kabupaten Malang, Jawa Timur 65216</p>
+    <a href="menu risol.html" class="button">Pesan Sekarang</a>
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@maem.risol" target="_blank">TikTok</a>
+      <a href="https://www.instagram.com/maemrisol" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/share/16yB38VMPL/" target="_blank">Facebook</a>
+    </div>
+  </section>
+
+
+  <footer>
+    &copy; 2025 MA'EM RISOL | Alamat: Gg. Muawal No.75, Krajan Utara, Sumber Porong, Lawang, Malang | 
+    <a href="https://wa.me/6281252504495" target="_blank">WhatsApp</a>
+  </footer>
+
+  </body>
+  </html>
