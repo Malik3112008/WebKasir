@@ -1,370 +1,546 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menu MA'EM RISOL - Vintage Interaktif</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu MA'EM RISOL - Vintage Interaktif</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  body{
-    font-family:'Roboto', sans-serif;
-    background:#f3e8dc;
-    color:#4b2e2e; 
-    min-height:100vh; 
-    padding:20px;
-  }
+    /* Body */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f3e8dc;
+      color: #4b2e2e;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-  header{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:#fff3e0;
-    border-bottom:2px solid #d1bfa7;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 40px;
-    z-index:1000;
-  }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #fff3e0;
+      border-bottom: 2px solid #d1bfa7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      z-index: 1000;
+    }
 
-  header .logo{
-    font-family:'Playfair Display', serif;
-    font-size:2rem;
-    font-weight:700;
-    color:#4b2e2e;
-    cursor:pointer;
-  }
+    header .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #4b2e2e;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
 
-  #search-bar{
-    margin:120px auto 20px; 
-    display:flex; justify-content:center;
-  }
+    header .logo:hover {
+      color: #a0522d;
+    }
 
-  #search-bar input{
-    padding:8px 12px; width:250px; border-radius:10px; border:1px solid #d1bfa7;
-  }
-  
-  #filter-buttons{
-    display:flex; justify-content:center; gap:10px; margin-bottom:20px;
-  }
+    /* Search Bar */
+    #search-bar {
+      margin: 120px auto 20px;
+      display: flex;
+      justify-content: center;
+    }
 
-  #filter-buttons button{
-    background:#a0522d; color:#fff; border:none; padding:8px 15px; border-radius:10px;
-    cursor:pointer; font-weight:600; transition:0.3s;
-  }
+    #search-bar input {
+      padding: 8px 12px;
+      width: 250px;
+      border: 1px solid #d1bfa7;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
 
-  #filter-buttons button:hover{ background:#8b3e2f; }
-  #filter-buttons button.active{ background:#8b3e2f; }
+    /* Filter Buttons */
+    #filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
-  .menu-grid{
-    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px;
-  }
+    #filter-buttons button {
+      background: #a0522d;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
 
-  .menu-item{
-    position:relative; overflow:hidden; border-radius:15px; 
-    box-shadow:0 5px 15px rgba(0,0,0,0.1); background:#fff3e0; 
-    cursor:pointer; transition:0.3s; opacity:0; transform:translateY(20px);
-  }
+    #filter-buttons button:hover,
+    #filter-buttons button.active {
+      background: #8b3e2f;
+    }
 
-  .menu-item img{ width:100%; height:150px; object-fit:cover; }
+    /* Menu Grid */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
 
-  .menu-info{ padding:10px; text-align:center; }
-  .menu-info h3{ font-family:'Playfair Display', serif; margin-bottom:5px; font-size:1.1rem; }
+    .menu-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      background: #fff3e0;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-  .menu-actions{ display:flex; justify-content:center; gap:10px; margin-top:5px; }
-  .menu-actions input{ width:50px; padding:5px; border-radius:5px; border:1px solid #d1bfa7; }
-  .menu-actions button{
-    background:#a0522d; color:#fff; border:none; padding:5px 10px; border-radius:8px; cursor:pointer; font-weight:600; transition:0.3s;
-  }
-  .menu-actions button:hover{ background:#8b3e2f; transform:scale(1.05); }
-  .menu-item:hover{ transform:scale(1.03); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+    .menu-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
 
-  /* Modal alamat */
-  #alamat-modal{
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(75,46,46,0.6); display:none; justify-content:center; align-items:center; z-index:1000;
-    animation: fadeInUp 0.3s forwards;
-  }
+    .menu-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
 
-  #alamat-box{
-    background:#fff3e0; padding:20px; border-radius:15px; width:320px; text-align:center; color:#4b2e2e;
-  }
+    .menu-info {
+      padding: 10px;
+      text-align: center;
+    }
 
-  #alamat-box button{
-    margin:5px; padding:8px 15px; border-radius:10px; border:none; background:#a0522d; color:#fff; font-weight:600; cursor:pointer; transition:0.3s;
-  }
+    .menu-info h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
 
-  #alamat-box button:hover{ background:#8b3e2f; }
-  #alamat-close{ background:#d1bfa7; color:#4b2e2e; }
+    .menu-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 5px;
+      padding-bottom: 10px;
+    }
 
-  #pilihan-luar{ margin-top:15px; display:none; }
+    .menu-actions input {
+      width: 50px;
+      padding: 5px;
+      border: 1px solid #d1bfa7;
+      border-radius: 5px;
+      text-align: center;
+    }
 
-  #keranjang-btn{
-    background:#a0522d; color:#fff; padding:10px 20px; border-radius:10px; font-weight:600; cursor:pointer;
-    position:fixed; bottom:20px; right:20px; z-index:1001; transition:0.3s;
-  }
+    .menu-actions button {
+      background: #a0522d;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
 
-  #keranjang-btn:hover{ background:#8b3e2f; }
+    .menu-actions button:hover {
+      background: #8b3e2f;
+      transform: scale(1.05);
+    }
 
-  /* Tombol back floating */
-  #back-btn{
-    display:none;
-    position:fixed;
-    bottom:80px; 
-    right:20px;
-    padding:12px 20px;
-    border:none;
-    background:#a0522d;
-    color:#fff;
-    border-radius:50px;
-    cursor:pointer;
-    z-index:1002;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    font-weight:600;
-    opacity:0;
-    transform:translateY(20px);
-    transition:0.4s ease, transform 0.3s ease;
-  }
+    /* Modal Alamat */
+    #alamat-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(75, 46, 46, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeInUp 0.3s forwards;
+    }
 
-  #back-btn.show{
-    opacity:1;
-    transform:translateY(0);
-  }
+    #alamat-box {
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 15px;
+      width: 320px;
+      text-align: center;
+      color: #4b2e2e;
+    }
 
-  #back-btn.hide{
-    opacity:0;
-    transform:translateY(20px);
-  }
+    #alamat-box button {
+      margin: 5px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 10px;
+      background: #a0522d;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-  /* Popup keranjang */
-  #popup-keranjang{
-    position:fixed;
-    top:20px;
-    right:20px;
-    color:#fafafa;
-    padding:12px 20px;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    opacity:0;
-    transform:translateY(-20px);
-    transition:0.4s ease, transform 0.4s ease;
-    z-index:1003;
-    background:#4caf50;
-  }
-  #popup-keranjang.show{
-    opacity:1;
-    transform:translateY(0);
-  }
+    #alamat-box button:hover {
+      background: #8b3e2f;
+    }
 
-  .popup-custom {
-  position:fixed;
-  top:20px;
-  right:20px;
-  color:#fafafa;
-  padding:12px 20px;
-  border-radius:10px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-  opacity:0;
-  transform:translateY(-20px);
-  transition:0.4s ease, transform 0.4s ease;
-  z-index:1003;
-  background:#4caf50;
-}
-.popup-custom.show {
-  opacity:1;
-  transform:translateY(0);
-}
+    #alamat-close {
+      background: #d1bfa7;
+      color: #4b2e2e;
+    }
 
-  @keyframes fadeInUp{ 
-    from{ opacity:0; transform:translateY(20px); } 
-    to{ opacity:1; transform:translateY(0); }
-  }
-</style>
+    #pilihan-luar {
+      margin-top: 15px;
+      display: none;
+    }
+
+    /* Tombol Utama */
+    #keranjang-btn {
+      background: #a0522d;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1001;
+      transition: background 0.3s ease;
+    }
+
+    #keranjang-btn:hover {
+      background: #8b3e2f;
+    }
+
+    #back-btn {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      padding: 12px 20px;
+      border: none;
+      background: #a0522d;
+      color: #fff;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 1002;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.4s ease;
+    }
+
+    #back-btn.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Popup */
+    .popup-custom {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background: #4caf50;
+      color: #fafafa;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: 0.4s ease;
+      z-index: 1003;
+    }
+
+    .popup-custom.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="logo" onclick="window.location.href='gg.html'">🍴 MA'EM RISOL</div>
-</header>
+  <!-- Header -->
+  <header>
+    <div class="logo" onclick="window.location.href='gg.html'">🍴 MA'EM RISOL</div>
+  </header>
 
-<div id="search-bar">
-  <input type="text" id="search-input" placeholder="Cari menu...">
-</div>
-<div id="filter-buttons">
-  <button data-cat="all" class="active">Semua</button>
-  <button data-cat="risol">Risol</button>
-  <button data-cat="bakaran">Bakaran</button>
-  <button data-cat="loadedfries">Loaded Fries</button>
-  <button data-cat="milky">Milky Ice</button>
-  <button data-cat="mocktail">Mocktail</button>
-  <button data-cat="tea">Tea</button>
-</div>
-
-<div class="menu-grid" id="menu-container"></div>
-
-<!-- Modal Alamat -->
-<div id="alamat-modal">
-  <div id="alamat-box">
-    <p>Apakah alamatmu berada di area Lawang?</p>
-    <button id="alamat-ya">Ya</button>
-    <button id="alamat-tidak">Tidak</button>
-    <div id="pilihan-luar">
-      <button id="grab-btn">Grab</button>
-      <button id="gojek-btn">Gojek</button>
-    </div>
-    <button id="alamat-close">Batal</button>
+  <!-- Search Bar -->
+  <div id="search-bar">
+    <input type="text" id="search-input" placeholder="Cari menu..." />
   </div>
-</div>
 
-<button id="keranjang-btn">Keranjang (0)</button>
-<button id="back-btn">Back</button>
+  <!-- Filter Buttons -->
+  <div id="filter-buttons">
+    <button data-cat="all" class="active">Semua</button>
+    <button data-cat="risol">Risol</button>
+    <button data-cat="bakaran">Bakaran</button>
+    <button data-cat="loadedfries">Loaded Fries</button>
+    <button data-cat="milky">Milky Ice</button>
+    <button data-cat="mocktail">Mocktail</button>
+    <button data-cat="tea">Tea</button>
+  </div>
 
-<!-- Popup berhasil masuk keranjang -->
-<div id="popup-keranjang" class="popup-custom">Berhasil ditambahkan ke keranjang!</div>
-<!-- Popup keranjang kosong -->
-<div id="popup-kosong" class="popup-custom" style="background:#e53935;">Keranjang kosong!</div>
-<!-- Popup checkout sukses -->
-<div id="popup-checkout" class="popup-custom" style="background:#2196f3;">Pesanan berhasil dikirim!</div>
+  <!-- Menu Grid -->
+  <div class="menu-grid" id="menu-container"></div>
 
-<script>
-const nomorWA="6281252504495";
-const menuData={
-  risol:[ {name:"Ori Beef Mayo", img:"images/mayo.jpg"}, {name:"Spicy Beef Mayo", img:"images/mayo2.jpg"}, {name:"Choco Banana", img:"images/choco.jpg"}, {name:"Jasuke", img:"images/risol.jpg"}, {name:"Kani Mentai", img:"images/risol.jpg"} ],
-  bakaran:[ {name:"Sosis", img:"images/risol2.jpg"}, {name:"Sosis Jumbo", img:"images/risol2.jpg"}, {name:"Pentol", img:"images/risol2.jpg"}, {name:"Salmon Fishball @5", img:"images/risol2.jpg"}, {name:"Salmon Fishball @2", img:"images/risol2.jpg"}, {name:"Otak Otak Singapore", img:"images/risol2.jpg"} ],
-  loadedfries:[ {name:"French Fries", img:"images/kentang.jpg"}, {name:"FF Beef Pattles", img:"images/kentang.jpg"}, {name:"FF Sosis", img:"images/kentang.jpg"}, {name:"FF Nugget", img:"images/kentang.jpg"} ],
-  milky:[ {name:"Choco Cheese", img:"images/minum.jpg"}, {name:"Choco Black Cookies", img:"images/minum.jpg"}, {name:"Choco Royal", img:"images/minum.jpg"}, {name:"Creamy Coffee", img:"images/minum.jpg"}, {name:"Coffee Caramel", img:"images/minum.jpg"}, {name:"Vanilla Latte", img:"images/minum.jpg"}, {name:"Guava", img:"images/minum.jpg"}, {name:"Mango", img:"images/minum.jpg"}, {name:"Durian", img:"images/minum.jpg"}, {name:"Strawberry", img:"images/minum.jpg"}, {name:"Avocado", img:"images/minum.jpg"}, {name:"Red Velvet", img:"images/minum.jpg"}, {name:"Bubble Gum", img:"images/minum.jpg"}, {name:"Thai Tea", img:"images/minum.jpg"}, {name:"Green Tea", img:"images/minum.jpg"} ],
-  mocktail:[ {name:"Mix Berry", img:"images/minum.jpg"}, {name:"Rainbow", img:"images/minum.jpg"}, {name:"Green Soda", img:"images/minum.jpg"}, {name:"Orange Sparkle", img:"images/minum.jpg"}, {name:"Blue Ocean", img:"images/minum.jpg"} ],
-  tea:[ {name:"Mango Tea", img:"images/minum.jpg"}, {name:"Jasmine Tea", img:"images/minum.jpg"}, {name:"Strawberry Tea", img:"images/minum.jpg"}, {name:"Leci Tea", img:"images/minum.jpg"} ]
-};
+  <!-- Modal Alamat -->
+  <div id="alamat-modal">
+    <div id="alamat-box">
+      <p>Apakah alamatmu berada di area Lawang?</p>
+      <button id="alamat-ya">Ya</button>
+      <button id="alamat-tidak">Tidak</button>
+      <div id="pilihan-luar">
+        <button id="grab-btn">Grab</button>
+        <button id="gojek-btn">Gojek</button>
+      </div>
+      <button id="alamat-close">Batal</button>
+    </div>
+  </div>
 
-let keranjang=[];
-const menuContainer=document.getElementById("menu-container");
-const backBtn=document.getElementById("back-btn");
-const popupKeranjang=document.getElementById("popup-keranjang");
-const popupKosong=document.getElementById("popup-kosong");
-const popupCheckout=document.getElementById("popup-checkout");
+  <!-- Tombol Utama -->
+  <button id="keranjang-btn">Keranjang (0)</button>
+  <button id="back-btn">Back</button>
 
-function displayMenu(cat="all", search=""){
-  menuContainer.innerHTML="";
-  let indexCounter=0;
-  for(let key in menuData){
-    if(cat!=="all" && cat!==key) continue;
-    menuData[key].forEach(item=>{
-      if(item.name.toLowerCase().includes(search.toLowerCase())){
-        const div=document.createElement("div");
-        div.className="menu-item";
-        const inputId=`${key}-${item.name.replace(/\W/g,'')}-qty`;
-        div.innerHTML=`
-          <img src="${item.img}" alt="${item.name}">
-          <div class="menu-info"><h3>${item.name}</h3></div>
-          <div class="menu-actions">
-            <input type="number" min="1" value="1" id="${inputId}">
-            <button data-menu="${item.name}" data-cat="${key}">Masukkan Keranjang</button>
-          </div>
-        `;
-        menuContainer.appendChild(div);
-        setTimeout(()=>{
-          div.style.opacity=1;
-          div.style.transform="translateY(0)";
-        }, 100*indexCounter++);
+  <!-- Popup -->
+  <div id="popup-keranjang" class="popup-custom">Berhasil ditambahkan ke keranjang!</div>
+  <div id="popup-kosong" class="popup-custom" style="background:#e53935;">Keranjang kosong!</div>
+  <div id="popup-checkout" class="popup-custom" style="background:#2196f3;">Pesanan berhasil dikirim!</div>
+
+  <script>
+    // Nomor WhatsApp
+    const nomorWA = "6281252504495";
+
+    // Data Menu
+    const menuData = {
+      risol: [
+        { name: "Ori Beef Mayo", img: "images/mayo.jpg" },
+        { name: "Spicy Beef Mayo", img: "images/mayo2.jpg" },
+        { name: "Choco Banana", img: "images/choco.jpg" },
+        { name: "Jasuke", img: "images/risol.jpg" },
+        { name: "Kani Mentai", img: "images/risol.jpg" }
+      ],
+      bakaran: [
+        { name: "Sosis", img: "images/risol2.jpg" },
+        { name: "Sosis Jumbo", img: "images/risol2.jpg" },
+        { name: "Pentol", img: "images/risol2.jpg" },
+        { name: "Salmon Fishball @5", img: "images/risol2.jpg" },
+        { name: "Salmon Fishball @2", img: "images/risol2.jpg" },
+        { name: "Otak Otak Singapore", img: "images/risol2.jpg" }
+      ],
+      loadedfries: [
+        { name: "French Fries", img: "images/kentang.jpg" },
+        { name: "FF Beef Pattles", img: "images/kentang.jpg" },
+        { name: "FF Sosis", img: "images/kentang.jpg" },
+        { name: "FF Nugget", img: "images/kentang.jpg" }
+      ],
+      milky: [
+        { name: "Choco Cheese", img: "images/minum.jpg" },
+        { name: "Choco Black Cookies", img: "images/minum.jpg" },
+        { name: "Choco Royal", img: "images/minum.jpg" },
+        { name: "Creamy Coffee", img: "images/minum.jpg" },
+        { name: "Coffee Caramel", img: "images/minum.jpg" },
+        { name: "Vanilla Latte", img: "images/minum.jpg" },
+        { name: "Guava", img: "images/minum.jpg" },
+        { name: "Mango", img: "images/minum.jpg" },
+        { name: "Durian", img: "images/minum.jpg" },
+        { name: "Strawberry", img: "images/minum.jpg" },
+        { name: "Avocado", img: "images/minum.jpg" },
+        { name: "Red Velvet", img: "images/minum.jpg" },
+        { name: "Bubble Gum", img: "images/minum.jpg" },
+        { name: "Thai Tea", img: "images/minum.jpg" },
+        { name: "Green Tea", img: "images/minum.jpg" }
+      ],
+      mocktail: [
+        { name: "Mix Berry", img: "images/minum.jpg" },
+        { name: "Rainbow", img: "images/minum.jpg" },
+        { name: "Green Soda", img: "images/minum.jpg" },
+        { name: "Orange Sparkle", img: "images/minum.jpg" },
+        { name: "Blue Ocean", img: "images/minum.jpg" }
+      ],
+      tea: [
+        { name: "Mango Tea", img: "images/minum.jpg" },
+        { name: "Jasmine Tea", img: "images/minum.jpg" },
+        { name: "Strawberry Tea", img: "images/minum.jpg" },
+        { name: "Leci Tea", img: "images/minum.jpg" }
+      ]
+    };
+
+    // State
+    let keranjang = [];
+
+    // DOM Elements
+    const menuContainer = document.getElementById("menu-container");
+    const backBtn = document.getElementById("back-btn");
+    const popupKeranjang = document.getElementById("popup-keranjang");
+    const popupKosong = document.getElementById("popup-kosong");
+    const popupCheckout = document.getElementById("popup-checkout");
+    const keranjangBtn = document.getElementById("keranjang-btn");
+
+    // Tampilkan menu
+    function displayMenu(category = "all", search = "") {
+      menuContainer.innerHTML = "";
+      let indexCounter = 0;
+
+      Object.keys(menuData).forEach(key => {
+        if (category !== "all" && category !== key) return;
+
+        menuData[key].forEach(item => {
+          if (item.name.toLowerCase().includes(search.toLowerCase())) {
+            const div = document.createElement("div");
+            div.className = "menu-item";
+            const inputId = `${key}-${item.name.replace(/\W/g, '')}-qty`;
+
+            div.innerHTML = `
+              <img src="${item.img}" alt="${item.name}">
+              <div class="menu-info"><h3>${item.name}</h3></div>
+              <div class="menu-actions">
+                <input type="number" min="1" value="1" id="${inputId}">
+                <button data-menu="${item.name}" data-cat="${key}">Masukkan Keranjang</button>
+              </div>
+            `;
+
+            menuContainer.appendChild(div);
+
+            // Animate in
+            setTimeout(() => {
+              div.style.opacity = 1;
+              div.style.transform = "translateY(0)";
+            }, 100 * indexCounter++);
+          }
+        });
+      });
+    }
+
+    // Inisialisasi
+    displayMenu();
+
+    // Filter
+    document.querySelectorAll("#filter-buttons button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#filter-buttons button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const searchValue = document.getElementById("search-input").value;
+        displayMenu(btn.dataset.cat, searchValue);
+      });
+    });
+
+    // Search
+    document.getElementById("search-input").addEventListener("input", e => {
+      const activeCat = document.querySelector("#filter-buttons button.active").dataset.cat;
+      displayMenu(activeCat, e.target.value);
+    });
+
+    // Update UI Keranjang
+    function updateKeranjangUI() {
+      keranjangBtn.textContent = `Keranjang (${keranjang.length})`;
+    }
+
+    // Show Popup
+    function showPopup(popup, message) {
+      popup.textContent = message;
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show"), 1500);
+    }
+
+    // Event: Masukkan ke keranjang
+    menuContainer.addEventListener("click", e => {
+      if (e.target.tagName === "BUTTON" && e.target.dataset.menu) {
+        const item = e.target.dataset.menu;
+        const cat = e.target.dataset.cat;
+        const inputId = `${cat}-${item.replace(/\W/g, '')}-qty`;
+        const qty = document.getElementById(inputId).value;
+        keranjang.push(`${item} x${qty}`);
+        updateKeranjangUI();
+        showPopup(popupKeranjang, `${item} berhasil ditambahkan ke keranjang!`);
       }
     });
-  }
-}
-displayMenu();
 
-// Tombol filter
-document.querySelectorAll("#filter-buttons button").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll("#filter-buttons button").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    displayMenu(btn.dataset.cat, document.getElementById("search-input").value);
-  });
-});
+    // Keranjang → Modal
+    keranjangBtn.onclick = () => {
+      if (keranjang.length === 0) {
+        showPopup(popupKosong, "Keranjang kosong!");
+        return;
+      }
+      document.getElementById("alamat-modal").style.display = "flex";
+      document.getElementById("pilihan-luar").style.display = "none";
+      backBtn.style.display = "block";
+      setTimeout(() => backBtn.classList.add("show"), 50);
+    };
 
-// Search
-document.getElementById("search-input").addEventListener("input", e=>{
-  const cat = document.querySelector("#filter-buttons button.active")?.dataset.cat || "all";
-  displayMenu(cat, e.target.value);
-});
+    // Back Button
+    backBtn.onclick = () => {
+      backBtn.classList.remove("show");
+      setTimeout(() => {
+        document.getElementById("alamat-modal").style.display = "none";
+        backBtn.style.display = "none";
+      }, 300);
+    };
 
-// Update keranjang
-const keranjangBtn=document.getElementById("keranjang-btn");
-function updateKeranjangUI(){ keranjangBtn.textContent=`Keranjang (${keranjang.length})`; }
+    // Tutup Modal
+    document.getElementById("alamat-close").onclick = backBtn.onclick;
 
-// Popup sukses
-function showPopupKeranjang(message){
-  popupKeranjang.textContent = message;
-  popupKeranjang.classList.add("show");
-  setTimeout(()=> popupKeranjang.classList.remove("show"),1500);
-}
-function showPopupKosong(message){
-  popupKosong.textContent = message;
-  popupKosong.classList.add("show");
-  setTimeout(()=> popupKosong.classList.remove("show"),1500);
-}
-function showPopupCheckout(message){
-  popupCheckout.textContent = message;
-  popupCheckout.classList.add("show");
-  setTimeout(()=> popupCheckout.classList.remove("show"),1500);
-}
+    // Pilih Alamat: Ya → WA
+    document.getElementById("alamat-ya").onclick = () => {
+      const pesanan = keranjang.join("\n");
+      const text = `Halo, saya ingin pesan:\n${pesanan}`;
+      window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(text)}`, "_blank");
+      backBtn.onclick();
+      keranjang = [];
+      updateKeranjangUI();
+      showPopup(popupCheckout, "Pesanan berhasil dikirim!");
+    };
 
-// Masukkan keranjang (delegasi)
-menuContainer.addEventListener("click", e=>{
-  if(e.target.tagName==="BUTTON" && e.target.dataset.menu){
-    const btn=e.target;
-    const item=btn.dataset.menu;
-    const cat=btn.dataset.cat;
-    const inputId=`${cat}-${item.replace(/\W/g,'')}-qty`;
-    const qty=document.getElementById(inputId).value;
-    keranjang.push(`${item} x${qty}`);
-    updateKeranjangUI();
-    showPopupKeranjang(`${item} berhasil ditambahkan ke keranjang!`);
-  }
-});
+    // Pilih Alamat: Tidak → Tampilkan pilihan
+    document.getElementById("alamat-tidak").onclick = () => {
+      document.getElementById("pilihan-luar").style.display = "block";
+    };
 
-// Keranjang → modal alamat
-keranjangBtn.onclick = ()=>{
-  if(keranjang.length===0){ showPopupKosong("Keranjang kosong!"); return; }
-  document.getElementById("alamat-modal").style.display="flex";
-  document.getElementById("pilihan-luar").style.display="none";
-  backBtn.style.display="block";
-  setTimeout(()=> backBtn.classList.add("show"),50);
-};
+    // Grab
+    document.getElementById("grab-btn").onclick = () => {
+      window.open("https://r.grab.com/g/6-20250826_204707_7c3b1af0fcba40fcb282aa445fe29057_MEXMPS-6-C263AK5DGBXGAE", "_blank");
+      backBtn.onclick();
+      keranjang = [];
+      updateKeranjangUI();
+    };
 
-// Tombol Back
-backBtn.onclick = ()=>{
-  backBtn.classList.remove("show");
-  backBtn.classList.add("hide");
-  setTimeout(()=>{ 
-    document.getElementById("alamat-modal").style.display="none";
-    backBtn.style.display="none"; 
-    backBtn.classList.remove("hide");
-  },300);
-};
-
-// Modal alamat tombol
-document.getElementById("alamat-close").onclick = backBtn.onclick;
-
-document.getElementById("alamat-ya").onclick = ()=>{
-  const text=`Halo, saya ingin pesan:\n${keranjang.join("\n")}`;
-  window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(text)}`,"_blank");
-  backBtn.onclick();
-  keranjang=[]; updateKeranjangUI();
-  showPopupCheckout("Pesanan berhasil dikirim!");
-};
-
-document.getElementById("alamat-tidak").onclick = ()=>{ document.getElementById("pilihan-luar").style.display="block"; };
-document.getElementById("grab-btn").onclick = ()=>{
-  window.open("https://r.grab.com/g/6-20250826_204707_7c3b1af0fcba40fcb282aa445fe29057_MEXMPS-6-C263AK5DGBXGAE","_blank");
-  backBtn.onclick(); keranjang=[]; updateKeranjangUI();
-};
-document.getElementById("gojek-btn").onclick = ()=>{
-  window.open("https://gofood.link/a/CTWgEeE","_blank");
-  backBtn.onclick(); keranjang=[]; updateKeranjangUI();
-};
-</script>
+    // Gojek
+    document.getElementById("gojek-btn").onclick = () => {
+      window.open("https://gofood.link/a/CTWgEeE", "_blank");
+      backBtn.onclick();
+      keranjang = [];
+      updateKeranjangUI();
+    };
+  </script>
 </body>
 </html>
